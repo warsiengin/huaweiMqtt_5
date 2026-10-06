@@ -245,12 +245,12 @@ class TestConfigManagerValidation:
             )
             assert any("batch_max_gap" in err for err in config.validate())
 
-    @pytest.mark.parametrize("instance_id", ["", "inv_1", "west-2"])
+    @pytest.mark.parametrize("instance_id", ["", "inv_5", "west-2"])
     def test_valid_instance_ids_are_accepted(self, tmp_path, instance_id):
         config = _make_config(tmp_path, {"instance_id": instance_id})
         assert not any("instance_id" in error for error in config.validate())
 
-    @pytest.mark.parametrize("instance_id", ["inv_1", "west inverter", "west/1", "x" * 33, 123])
+    @pytest.mark.parametrize("instance_id", ["inv_5", "west inverter", "west/1", "x" * 33, 123])
     def test_invalid_instance_ids_are_rejected(self, tmp_path, instance_id):
         config = _make_config(tmp_path, {"instance_id": instance_id})
         assert any("instance_id" in error for error in config.validate())
